@@ -10,4 +10,10 @@ public class MainMenuPanel : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         
     }
+
+    public void optionGame()
+    {
+        SceneManager.LoadScene("OptionScene");
+
+    }
 }

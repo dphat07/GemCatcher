@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+
+
+    public CharacterDatabase characterDB;
+    public SpriteRenderer artworkSprite;
+    //public TextMeshPro nameText;
+    public int selectedOption = 0;
+
+
     public static CharacterMovement instance;
 
     public float speed = 100f;
@@ -35,10 +43,24 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.HasKey("selectedOption"))
+        {
+            selectedOption = 0;
+        }
+        else
+        {
+            Load();
+        }
+
+        UpdateCharacter(selectedOption);
+
+
         //bắt đầu animation khép mở chân
         animator = GetComponent<Animator>();
         player = GetComponent<Rigidbody2D>();
         instance = this;
+
+
 
     }
 
@@ -150,6 +172,19 @@ public class CharacterMovement : MonoBehaviour
         
     }
 
-   
-     
+
+    private void UpdateCharacter(int selectedOption)
+    {
+        Character character = characterDB.GetCharacter(selectedOption);
+        artworkSprite.sprite = character.characterSprite;
+        //nameText.text = character.characterName;
+    }
+
+
+    private void Load()
+    {
+        selectedOption = PlayerPrefs.GetInt("selectedOption");
+    }
+
+
 }
